@@ -15,13 +15,11 @@ const resolvers = {
     },
 
     Mutation: {
-        // add users
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
             return { token, user };
         },
-        // logins
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -39,8 +37,6 @@ const resolvers = {
 
             return { token, user };
         },
-        // saves the books
-    
         saveBook: async (parent, { bookData }, context) => {
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
@@ -52,7 +48,6 @@ const resolvers = {
             }
             throw AuthenticationError;
         },
-        // removes books
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
@@ -64,12 +59,6 @@ const resolvers = {
             }
             throw AuthenticationError;
         }
-
-
-
-
-
-
     },
 };
 
