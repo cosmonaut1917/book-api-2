@@ -16,7 +16,7 @@ import Auth from '../utils/auth';
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
 
   const userData = data?.me || {};
@@ -31,7 +31,7 @@ const SavedBooks = () => {
     }
 
     try {
-      const { data } = await removeBook({
+      await removeBook({
         variables: { bookId },
       });
 
@@ -48,7 +48,7 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid="true" className="text-light bg-dark p-5">
+      <div className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing {userData.username}'s books!</h1>
         </Container>
